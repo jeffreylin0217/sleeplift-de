@@ -3,7 +3,14 @@ __pycache__/
 *.pyc
 .DS_Store
 
-# data outputs (keep only small sample if you want)
+# data outputs
 data/warehouse/
 data/gold/
+
+# ignore raw data by default
+data/raw/
+
+# but keep the demo CSV tracked
+!data/raw/sleeplift_events.csv
+
 
