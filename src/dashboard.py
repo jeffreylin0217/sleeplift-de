@@ -57,4 +57,5 @@ st.write(f"**Workout minutes → sleep minutes:** {fmt(r2)}")
 st.write(f"**Last caffeine hour → sleep minutes:** {fmt(r3)}")
 
 st.subheader("Gold table preview")
-st.dataframe(df.sort_values("day", ascending=False), use_container_width=True)
+st.dataframe(df.sort_values("day", ascending=False), width="stretch")
+
