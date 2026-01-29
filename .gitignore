@@ -6,4 +6,4 @@ __pycache__/
 # data outputs (keep only small sample if you want)
 data/warehouse/
 data/gold/
-data/raw/
+
