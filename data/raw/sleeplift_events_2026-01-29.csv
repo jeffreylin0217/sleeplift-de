@@ -1,0 +1,30 @@
+type,date,time,field1,field2,field3,notes
+sleep,1/25/2026,,510,,,""
+sleep,1/26/2026,,330,,,""
+sleep,1/27/2026,,630,,,""
+sleep,1/28/2026,,675,,,""
+sleep,1/29/2026,,510,,,""
+sleep,1/30/2026,,569,,,""
+sleep,1/31/2026,,542,,,""
+caffeine,1/25/2026,9:00 AM,100,coffee,,
+caffeine,1/29/2026,12:00 PM,100,coffee,,
+caffeine,1/29/2026,4:00 PM,200,preworkout,,
+caffeine,1/30/2026,10:18 AM,0,coffee,,
+caffeine,1/31/2026,4:30 PM,200,coffee,,
+caffeine,1/28/2026,6:48 AM,100,coffee,,
+caffeine,1/29/2026,6:30 AM,235,energyDrink,,
+workout,1/25/2026,11:25 AM,Lift,60,7,""
+workout,1/26/2026,2:00 PM,Lift,50,4,""
+workout,1/27/2026,8:00 PM,Lift,60,5,""
+workout,1/28/2026,5:45 PM,Lift,70,10,""
+workout,1/29/2026,2:20 PM,Sport,80,1,""
+workout,1/31/2026,3:11 PM,Lift,66,10,""
+workout,1/30/2026,8:55 PM,Cardio,64,10,""
+nutrition,1/25/2026,,2500,200,,
+nutrition,1/26/2026,,2000,155,,
+nutrition,1/27/2026,,2700,205,,
+nutrition,1/28/2026,,2400,180,,
+nutrition,1/31/2026,,2100,160,,
+nutrition,1/30/2026,,2650,210,,
+nutrition,1/29/2026,,2700,180,,
+
