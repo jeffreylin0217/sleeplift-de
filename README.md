@@ -14,6 +14,15 @@ A personal analytics batch ELT pipeline that ingests raw CSV exports (sleep, caf
 - Git
 - macOS / Linux (Windows works via WSL)
 
+## Inputs (CSV files)
+
+Place the following CSV exports in `data/raw/`:
+
+- `sleep.csv`
+- `caffeine.csv`
+- `workout.csv`
+- `nutrition.csv`
+  
 ## Quick Start
 ```
 python3 -m venv .venv
