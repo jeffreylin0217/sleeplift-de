@@ -1,4 +1,4 @@
-[![CI](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml/badge.svg)](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml)
+4[![CI](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml/badge.svg)](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml)
 
 # SleepLift-DE (Data Engineering Pipeline)
 
@@ -22,6 +22,26 @@ pip install -r requirements.txt
 python3 src/pipeline/run_all.py
 streamlit run src/dashboard.py
 ```
+## Screenshots
+
+### Dashboard (Gold KPIs + trends)
+![Dashboard](docs/images/dashboard.png)
+
+### Correlations + Gold table preview
+![Gold table preview](docs/images/gold.png)
+
+### Pipeline run (end-to-end)
+![Pipeline run](docs/images/Streamlit_runs.png)
+
+### CI passing (GitHub Actions)
+![CI passing](docs/images/github_pass.png)
+
+### Data dictionary (schema documentation)
+![Data dictionary](docs/images/data_dictionary.png)
+
+### Gold output exists (CSV artifact)
+![Gold output exists](docs/images/gold_output_exists.png)
+
 ## Architecture (Bronze → Silver → Gold)
 - **Bronze:** raw CSV exports in `data/raw/` ingested into DuckDB table `raw_events` (idempotent via content-hash `event_id`)
 - **Silver:** typed domain tables (`sleep`, `caffeine`, `workout`, `nutrition`) with parsed dates/timestamps
