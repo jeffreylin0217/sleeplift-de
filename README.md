@@ -27,7 +27,8 @@ Place the following CSV exports in `data/raw/`:
 ```
 ./data/warehouse/sleeplift.duckdb
 ```
-## Quick Start
+
+Quick Start
 ```
 python3 -m venv .venv
 source .venv/bin/activate
