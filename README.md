@@ -33,3 +33,10 @@ pip install -r requirements.txt
 
 python3 src/pipeline/run_all.py
 streamlit run src/dashboard.py
+
+```
+## Development & tests
+```bash
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest -q
