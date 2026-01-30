@@ -13,13 +13,12 @@ data/raw/
 # but keep the demo CSV tracked
 !data/raw/sleeplift_events.csv
 
-# --- Personal raw exports (DO NOT COMMIT) ---
+# ---- Raw exports (never commit real personal data) ----
 data/raw/*
 !data/raw/sample/
 !data/raw/sample/**
 
-# --- Local warehouse / outputs ---
-data/warehouse/
-*.duckdb
-data/gold/
+# ---- Generated local warehouse / outputs ----
+data/warehouse/*.duckdb
+data/gold/*
 
