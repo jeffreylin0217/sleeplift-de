@@ -22,7 +22,11 @@ Place the following CSV exports in `data/raw/`:
 - `caffeine.csv`
 - `workout.csv`
 - `nutrition.csv`
-  
+
+## DuckDB file: 
+```
+./data/warehouse/sleeplift.duckdb
+```
 ## Quick Start
 ```
 python3 -m venv .venv
