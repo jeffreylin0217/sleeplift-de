@@ -4,11 +4,19 @@
 
 A personal analytics batch ELT pipeline that ingests raw CSV exports (sleep, caffeine, workout, nutrition), loads them into DuckDB, transforms them into typed domain tables, and produces a daily-grain feature mart (`daily_features`) consumed by a Streamlit dashboard.
 
-## Resume bullets (copy/paste)
-- Built a Bronze→Silver→Gold batch ELT pipeline (Python, DuckDB) to transform 4-domain event logs (sleep/caffeine/workout/nutrition) into a daily-grain feature mart powering a Streamlit dashboard.
-- Implemented idempotent ingestion via deterministic content-hash `event_id` plus data-quality checks (range + uniqueness) that quarantine invalid records in `dead_rows`.
-- Set up GitHub Actions CI to rebuild Gold (`run_all.py`) and run `pytest` on every push and pull request.
+## Key Features 
+-Bronze→Silver→Gold batch ELT pipeline (Python, DuckDB) producing a daily-grain feature mart (daily_features) powering a Streamlit dashboard.
+-Idempotent ingestion via deterministic content-hash event_id plus data-quality checks (range, uniqueness) quarantining invalid records in dead_rows.
+-GitHub Actions CI runs run_all.py to rebuild Gold and executes pytest on every push and pull request.
 
+## Quick Start
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 src/pipeline/run_all.py
+streamlit run src/dashboard.py
+```
 ## Architecture (Bronze → Silver → Gold)
 - **Bronze:** raw CSV exports in `data/raw/` ingested into DuckDB table `raw_events` (idempotent via content-hash `event_id`)
 - **Silver:** typed domain tables (`sleep`, `caffeine`, `workout`, `nutrition`) with parsed dates/timestamps
@@ -32,7 +40,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 python3 src/pipeline/run_all.py
-streamlit run src/dashboard.py
+Streamlit run src/dashboard.py
 
 ```
 ## Development & tests
