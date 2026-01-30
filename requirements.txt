@@ -1,3 +1,4 @@
+```txt
+duckdb
 pandas
 streamlit
-duckdb
