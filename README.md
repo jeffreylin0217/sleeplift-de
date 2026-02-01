@@ -62,7 +62,7 @@ streamlit run src/dashboard.py
 - **Gold:** `daily_features` table + `data/gold/daily_features.csv` for dashboard consumption
 - **Quality:** range checks + uniqueness checks; invalid rows routed to `dead_rows` instead of crashing
   
-## Data model (1-minute overview)
+## Data model
 
 The pipeline follows a warehouse-style flow with clear table responsibilities:
 
