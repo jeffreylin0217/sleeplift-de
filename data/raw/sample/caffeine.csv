@@ -1,2 +1,8 @@
-timestamp,caffeine_mg
-2026-01-01 10:00:00,100
+timestamp,caffeine_mg,source,notes
+2026-01-01 09:00 AM,95,coffee,morning coffee
+2026-01-01 01:30 PM,40,tea,early afternoon tea
+2026-01-02 08:30 AM,120,coffee,morning coffee
+2026-01-02 04:15 PM,160,energy drink,late caffeine
+2026-01-03 10:00 AM,95,coffee,morning coffee
+2026-01-04 02:45 PM,100,coffee,after lunch
+2026-01-05 09:30 AM,80,tea,morning tea

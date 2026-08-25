@@ -1,103 +1,103 @@
 [![CI](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml/badge.svg)](https://github.com/jeffreylin0217/sleeplift-de/actions/workflows/ci.yml)
 
-# SleepLift-DE (Data Engineering Pipeline)
+# SleepLift-DE
 
-A personal analytics batch ELT pipeline that ingests raw CSV exports (sleep, caffeine, workout, nutrition), loads them into DuckDB, transforms them into typed domain tables, and produces a daily-grain feature mart (`daily_features`) consumed by a Streamlit dashboard.
+SleepLift-DE is a student-built batch ELT analytics pipeline for personal sleep, caffeine, workout, and nutrition logs. It loads CSV exports into DuckDB, organizes them into Bronze, Silver, and Gold layers, validates the outputs, and produces a `daily_features` table for a Streamlit dashboard.
 
-## Key Features
-- Bronze→Silver→Gold batch ELT pipeline (Python, DuckDB) producing a daily-grain feature mart (`daily_features`) powering a Streamlit dashboard
-- Idempotent ingestion via deterministic content-hash `event_id` + data-quality checks (range, uniqueness) quarantining invalid records in `dead_rows`
-- GitHub Actions CI runs `run_all.py` to rebuild Gold and executes `pytest` on every push/pull request
+This project is intentionally local and explainable. It is not meant to be a production health app; it is meant to show data ingestion, data modeling, quality checks, testing, and dashboarding on a realistic small dataset.
 
-## Requirements
-- Python 3.11+ (recommended)
-- Git
-- macOS / Linux (Windows works via WSL)
+## What the project does
 
-## Inputs (CSV files)
-
-Place the following CSV exports in `data/raw/`:
-
-- `sleep.csv`
-- `caffeine.csv`
-- `workout.csv`
-- `nutrition.csv`
-
-## DuckDB file: 
-```
-./data/warehouse/sleeplift.duckdb
+```text
+raw CSV exports
+    ↓
+Bronze: raw_events
+    ↓
+Silver: typed sleep / caffeine / workout / nutrition tables
+    ↓
+Gold: daily_features, one row per day
+    ↓
+Streamlit dashboard
 ```
 
-Quick Start
-```
+## Key features
+
+- Ingests 4 CSV event streams: `sleep.csv`, `caffeine.csv`, `workout.csv`, and `nutrition.csv`
+- Stores raw records in DuckDB with deterministic SHA-256 `event_id` values to avoid duplicate inserts on reruns
+- Builds typed Silver tables for sleep, caffeine, workout, and nutrition records
+- Builds a Gold `daily_features` table with one row per day for dashboarding and analysis
+- Runs basic data-quality checks and sends malformed rows to `dead_rows`
+- Includes pytest checks for Gold-layer invariants and GitHub Actions CI
+
+## Quick start
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
+
+# optional: copy demo inputs into the raw input folder
+cp data/raw/sample/*.csv data/raw/
+
 python3 src/pipeline/run_all.py
+pytest -q
 streamlit run src/dashboard.py
 ```
+
+## Input format
+
+The demo data uses one simple CSV per log type:
+
+```text
+data/raw/sleep.csv
+data/raw/caffeine.csv
+data/raw/workout.csv
+data/raw/nutrition.csv
+```
+
+The pipeline also supports the older unified export format used during early development:
+
+```text
+./data/raw/demo_events.csv
+```
+
+Do not commit real personal health data. Use the fake sample files in `data/raw/sample/` for demos, CI, and sharing.
+
+## Main tables
+
+- `raw_events`: Bronze table with one row per raw event and a deterministic `event_id`
+- `dead_rows`: malformed rows that should not enter the clean tables
+- `sleep`, `caffeine`, `workout`, `nutrition`: typed Silver tables
+- `daily_features`: Gold feature mart with one row per day
+
 ## Screenshots
 
-### Dashboard (Gold KPIs + trends)
+### Dashboard
 ![Dashboard](docs/images/dashboard.png)
 
-### Correlations + Gold table preview
+### Gold table preview
 ![Gold table preview](docs/images/gold.png)
 
-### Pipeline run (end-to-end)
+### Pipeline run
 ![Pipeline run](docs/images/Streamlit_runs.png)
 
-### CI passing (GitHub Actions)
+### CI passing
 ![CI passing](docs/images/github_pass.png)
 
-### Data dictionary (schema documentation)
-![Data dictionary](docs/images/data_dictionary.png)
-
-### Gold output exists (CSV artifact)
-![Gold output exists](docs/images/gold_output_exists.png)
-
-## Architecture (Bronze → Silver → Gold)
-- **Bronze:** raw CSV exports in `data/raw/` ingested into DuckDB table `raw_events` (idempotent via content-hash `event_id`)
-- **Silver:** typed domain tables (`sleep`, `caffeine`, `workout`, `nutrition`) with parsed dates/timestamps
-- **Gold:** `daily_features` table + `data/gold/daily_features.csv` for dashboard consumption
-- **Quality:** range checks + uniqueness checks; invalid rows routed to `dead_rows` instead of crashing
-  
-## Data model
-
-The pipeline follows a warehouse-style flow with clear table responsibilities:
-
-- `raw_events` (Bronze): raw event records ingested from CSV with a deterministic `event_id` for idempotent reruns
-- Silver domain tables: cleaned/typed tables split by domain:
-  - `sleep`
-  - `caffeine`
-  - `workout`
-  - `nutrition`
-- `daily_features` (Gold): curated daily-grain feature mart (1 row per calendar day) built from Silver tables and exported to `data/gold/daily_features.csv` for dashboard/analysis
-
-**Grain**
-- `raw_events`: 1 row per event
-- Silver tables: 1 row per domain event (typed + normalized)
-- `daily_features`: 1 row per day (daily grain)
-
-For exact column definitions + units, see `docs/data_dictionary.md`.
-
 ## Repository layout
-- `src/pipeline/ingest.py` — load raw CSVs into DuckDB (`raw_events`) with idempotent keys
-- `src/pipeline/transform.py` — build typed Silver tables
-- `src/pipeline/build_gold.py` — build Gold `daily_features` + CSV export
-- `src/pipeline/quality.py` — validations + quarantine
-- `src/pipeline/run_all.py` — end-to-end pipeline runner
-- `src/dashboard.py` — Streamlit dashboard
-- `tests/` — pytest checks for Gold invariants
-- `docs/data_dictionary.md` — table/column definitions
 
-## Development & tests
-```bash
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-pytest -q
-
+```text
+src/pipeline/ingest.py       # load CSVs into raw_events
+src/pipeline/transform.py    # build typed Silver tables
+src/pipeline/build_gold.py   # build daily_features and export CSV
+src/pipeline/quality.py      # validate core outputs
+tests/test_gold_invariants.py
+src/dashboard.py
+docs/data_dictionary.md
+docs/sql_examples.md
 ```
-## Data Source (iOS app)
-CSV exports are generated by my Swift iOS app:
-https://github.com/jeffreylin0217/sleeplift-ios
+
+## How to explain it simply
+
+I built SleepLift-DE to practice data engineering with a realistic personal dataset. The project takes exported CSV logs, assigns each record a deterministic event ID so reruns do not create duplicates, loads the raw events into DuckDB, transforms them into typed tables, and builds a daily `daily_features` table. The Streamlit dashboard then uses that Gold table to show sleep, caffeine, workout, and nutrition trends.

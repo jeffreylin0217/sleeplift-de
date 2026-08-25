@@ -1,2 +1,6 @@
-date,calories,protein_g
-2026-01-01,2200,160
+date,calories,protein_g,notes
+2026-01-01,2300,155,normal day
+2026-01-02,2500,170,higher calories
+2026-01-03,2400,165,normal day
+2026-01-04,2200,140,lower appetite
+2026-01-05,2600,180,higher protein

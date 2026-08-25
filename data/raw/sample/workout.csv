@@ -1,2 +1,6 @@
-date,workout_minutes
-2026-01-01,45
+date,time,workout_type,duration_minutes,rpe,notes
+2026-01-01,06:30 PM,Lift,45,7,upper body
+2026-01-02,07:00 PM,Cardio,30,6,treadmill
+2026-01-03,05:45 PM,Lift,50,8,legs
+2026-01-04,06:15 PM,Walk,25,3,recovery walk
+2026-01-05,06:00 PM,Lift,40,7,full body
