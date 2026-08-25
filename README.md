@@ -2,9 +2,9 @@
 
 # SleepLift-DE
 
-SleepLift-DE is a student-built batch ELT analytics pipeline for personal sleep, caffeine, workout, and nutrition logs. It loads CSV exports into DuckDB, organizes them into Bronze, Silver, and Gold layers, validates the outputs, and produces a `daily_features` table for a Streamlit dashboard.
+SleepLift-DE is a student-built batch ELT analytics pipeline for personal sleep, caffeine, workout, and nutrition logs. It loads CSV exports into DuckDB, organizes records into Bronze, Silver, and Gold layers, validates the outputs, and produces a `daily_features` table for a Streamlit dashboard.
 
-This project is intentionally local and explainable. It is not meant to be a production health app; it is meant to show data ingestion, data modeling, quality checks, testing, and dashboarding on a realistic small dataset.
+This project is intentionally local and explainable. It is not meant to be a production health app; it is meant to show data ingestion, data modeling, data-quality checks, testing, and dashboarding on a realistic small dataset.
 
 ## What the project does
 
@@ -26,8 +26,19 @@ Streamlit dashboard
 - Stores raw records in DuckDB with deterministic SHA-256 `event_id` values to avoid duplicate inserts on reruns
 - Builds typed Silver tables for sleep, caffeine, workout, and nutrition records
 - Builds a Gold `daily_features` table with one row per day for dashboarding and analysis
-- Runs basic data-quality checks and sends malformed rows to `dead_rows`
+- Runs data-quality checks for duplicate records, invalid values, and malformed rows
+- Sends malformed records to `dead_rows` instead of mixing them into clean analytics tables
 - Includes pytest checks for Gold-layer invariants and GitHub Actions CI
+
+## Skills demonstrated
+
+- Python-based data pipeline development
+- SQL-style data modeling with DuckDB
+- Bronze/Silver/Gold analytics architecture
+- Data cleaning, validation, and quality checks
+- Idempotent ingestion using deterministic event IDs
+- Dashboarding with Streamlit
+- Automated testing with pytest and GitHub Actions
 
 ## Quick start
 
@@ -74,15 +85,19 @@ Do not commit real personal health data. Use the fake sample files in `data/raw/
 ## Screenshots
 
 ### Dashboard
+
 ![Dashboard](docs/images/dashboard.png)
 
 ### Gold table preview
+
 ![Gold table preview](docs/images/gold.png)
 
 ### Pipeline run
+
 ![Pipeline run](docs/images/Streamlit_runs.png)
 
 ### CI passing
+
 ![CI passing](docs/images/github_pass.png)
 
 ## Repository layout
@@ -97,6 +112,12 @@ src/dashboard.py
 docs/data_dictionary.md
 docs/sql_examples.md
 ```
+
+## Related project
+
+This pipeline can be used with SleepLift Data Logger, an offline SwiftUI app that logs sleep, caffeine, workout, and nutrition records as structured local data and exports them as CSV files for downstream analytics.
+
+- SleepLift Data Logger: https://github.com/jeffreylin0217/sleeplift-ios
 
 ## How to explain it simply
 
