@@ -1,24 +1,24 @@
 .venv/
+venv/
 __pycache__/
 *.pyc
 .DS_Store
+.pytest_cache/
+.mypy_cache/
 
-# data outputs
-data/warehouse/
-data/gold/
+# Generated local warehouse files
+*.duckdb
+*.duckdb.bak
+*.db
+*.sqlite
+*.sqlite3
 
-# ignore raw data by default
-data/raw/
-
-# but keep the demo CSV tracked
-!data/raw/sleeplift_events.csv
-
-# ---- Raw exports (never commit real personal data) ----
-data/raw/*
+# Do not commit real raw personal exports by default.
+# Keep fake sample data tracked.
+data/raw/*.csv
+!data/raw/demo_events.csv
 !data/raw/sample/
-!data/raw/sample/**
+!data/raw/sample/*.csv
 
-# ---- Generated local warehouse / outputs ----
-data/warehouse/*.duckdb
-data/gold/*
-
+# Generated Gold output can be rebuilt from sample inputs.
+data/gold/*.csv

@@ -1,2 +1,6 @@
-date,sleep_minutes
-2026-01-01,480
+date,sleep_minutes,notes
+2026-01-01,480,normal night
+2026-01-02,420,late caffeine
+2026-01-03,510,good sleep
+2026-01-04,390,short night
+2026-01-05,540,recovery night

@@ -1,20 +1,25 @@
+from __future__ import annotations
+
 import subprocess
 import sys
 
 STEPS = [
-    ["python", "src/pipeline/ingest.py"],
-    ["python", "src/pipeline/transform.py"],
-    ["python", "src/pipeline/build_gold.py"],
-    ["python", "src/pipeline/quality.py"],
+    "src/pipeline/ingest.py",
+    "src/pipeline/transform.py",
+    "src/pipeline/build_gold.py",
+    "src/pipeline/quality.py",
 ]
 
-def main():
-    for cmd in STEPS:
+
+def main() -> None:
+    for script in STEPS:
+        cmd = [sys.executable, script]
         print("\n==>", " ".join(cmd))
-        r = subprocess.run(cmd)
-        if r.returncode != 0:
-            sys.exit(r.returncode)
-    print("\nALL DONE ✅")
+        result = subprocess.run(cmd)
+        if result.returncode != 0:
+            sys.exit(result.returncode)
+    print("\nPIPELINE COMPLETE")
+
 
 if __name__ == "__main__":
     main()
