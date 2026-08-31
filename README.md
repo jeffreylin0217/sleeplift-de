@@ -28,7 +28,7 @@ Streamlit dashboard
 - Builds a Gold `daily_features` table with one row per day for dashboarding and analysis
 - Runs data-quality checks for duplicate records, invalid values, and malformed rows
 - Sends malformed records to `dead_rows` instead of mixing them into clean analytics tables
-- Includes pytest checks for Gold-layer invariants and GitHub Actions CI
+- Includes pytest checks for Gold-layer invariants and malformed-input quarantine behavior, executed through GitHub Actions CI
 
 ## Skills demonstrated
 
@@ -108,6 +108,7 @@ src/pipeline/transform.py    # build typed Silver tables
 src/pipeline/build_gold.py   # build daily_features and export CSV
 src/pipeline/quality.py      # validate core outputs
 tests/test_gold_invariants.py
+tests/test_quarantine.py
 src/dashboard.py
 docs/data_dictionary.md
 docs/sql_examples.md
